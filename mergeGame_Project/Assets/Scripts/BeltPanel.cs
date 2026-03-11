@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConveyorBeltController : MonoBehaviour
+public class BeltPanel : MonoBehaviour
 {
+    [Header("World Bomb")]
+    public GameObject bombPrefab;
+    public Transform bombSpawnPoint;
+
     [Header("Slots (left -> right)")]
     public RectTransform[] slots = new RectTransform[5];
 
@@ -145,24 +149,18 @@ public class ConveyorBeltController : MonoBehaviour
     // Called by item when it ends drag
     public IEnumerator TryDropOrReturn(BeltItemView item)
     {
-        // If dropped inside DropZone -> remove from belt and refill/merge
         if (RectTransformUtility.RectangleContainsScreenPoint(dropZone, Input.mousePosition))
         {
-            // Removed item goes to drop zone (you can also instantiate a “placed” copy instead)
-            item.Rect.SetParent(dropZone, worldPositionStays: true);
-
-            // Remove from belt list and refill
             int index = item.CurrentSlotIndex;
+
+            // Spawn bomb in world
+            SpawnBomb(item.Level);
+
+            Destroy(item.gameObject);
             belt[index] = null;
 
             yield return CollapseLeftAndRefill(index);
             yield return ResolveMergesAnimated();
-        }
-        else
-        {
-            // Return to belt
-            item.Rect.SetParent(itemsParent, worldPositionStays: true);
-            yield return AnimateAllToSlots();
         }
     }
 
@@ -176,6 +174,13 @@ public class ConveyorBeltController : MonoBehaviour
         belt[4] = SpawnNewItemOffscreenRight();
 
         yield return AnimateAllToSlots();
+    }
+    void SpawnBomb(int level)
+    {
+        GameObject bomb = Instantiate(bombPrefab, bombSpawnPoint.position, Quaternion.identity);
+
+        // optional scaling based on level
+        bomb.transform.localScale *= 1f + (level * 0.1f);
     }
 
     IEnumerator ResolveMergesAnimated()

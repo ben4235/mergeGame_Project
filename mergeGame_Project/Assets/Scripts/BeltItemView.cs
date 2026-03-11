@@ -15,14 +15,14 @@ public class BeltItemView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
     public int CurrentSlotIndex { get; set; }
     public bool IsDragging { get; private set; }
 
-    private ConveyorBeltController belt;
+    private BeltPanel belt;
 
     void Awake()
     {
         Rect = GetComponent<RectTransform>();
     }
 
-    public void Init(int level, ConveyorBeltController owner)
+    public void Init(int level, BeltPanel owner)
     {
         belt = owner;
         SetLevel(level);
