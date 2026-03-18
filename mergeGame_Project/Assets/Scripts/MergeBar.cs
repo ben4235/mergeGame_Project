@@ -8,43 +8,88 @@ public class MergeBar : MonoBehaviour
 
     void Start()
     {
-        FillBar();
+        FillEmptySlots();
+        RefreshVisuals();
     }
 
-    void FillBar()
+    void Update()
     {
-        foreach (MergeSlot slot in slots)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (slot.level == 0)
+            Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos2D = new Vector2(mouseWorld.x, mouseWorld.y);
+
+            Collider2D[] hits = Physics2D.OverlapPointAll(mousePos2D);
+
+            Debug.Log("Hits found: " + hits.Length);
+
+            foreach (Collider2D hit in hits)
             {
-                slot.level = 1;
-                slot.GetComponent<SpriteRenderer>().color = Color.yellow;
+                Debug.Log("Clicked on: " + hit.name);
+
+                MergeSlot slot = hit.GetComponent<MergeSlot>();
+                if (slot != null)
+                {
+                    TakeBomb(slot);
+                    break;
+                }
             }
         }
     }
 
     public void TakeBomb(MergeSlot slot)
     {
-        if (player.heldBomb != null) return;
+        Debug.Log("TakeBomb called on: " + slot.name);
 
-        GameObject bomb = Instantiate(
-            bombPrefab,
-            player.holdPoint.position,
-            Quaternion.identity
-        );
+        if (slot == null) return;
+        if (slot.level <= 0) return;
+        if (player == null || player.IsHoldingBomb()) return;
+        if (bombPrefab == null) return;
+        if (player.holdPoint == null) return;
 
-        bomb.transform.parent = player.holdPoint;
+        GameObject bomb = Instantiate(bombPrefab, player.holdPoint.position, Quaternion.identity);
+        bomb.transform.SetParent(player.holdPoint);
+        bomb.transform.localPosition = Vector3.zero;
 
         Rigidbody2D rb = bomb.GetComponent<Rigidbody2D>();
-        rb.simulated = false;
+        if (rb != null)
+        {
+            rb.simulated = false;
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
 
-        bomb.GetComponent<Bomb>().level = slot.level;
+        Bomb bombScript = bomb.GetComponent<Bomb>();
+        if (bombScript != null)
+        {
+            bombScript.level = slot.level;
+        }
 
         player.heldBomb = bomb;
 
         slot.level = 0;
-        slot.GetComponent<SpriteRenderer>().color = Color.gray;
 
-        FillBar();
+        FillEmptySlots();
+        RefreshVisuals();
+    }
+
+    void FillEmptySlots()
+    {
+        foreach (MergeSlot slot in slots)
+        {
+            if (slot.level == 0)
+                slot.level = 1;
+        }
+    }
+
+    public void RefreshVisuals()
+    {
+        foreach (MergeSlot slot in slots)
+        {
+            SpriteRenderer sr = slot.GetComponent<SpriteRenderer>();
+            if (sr == null) continue;
+
+            sr.color = slot.level > 0 ? Color.yellow : Color.gray;
+        }
     }
 }

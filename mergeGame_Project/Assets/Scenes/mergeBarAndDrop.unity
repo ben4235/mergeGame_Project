@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b8728ea5d33fd42ab1f4189911cb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  level: 1
   mergeBar: {fileID: 939570709}
 --- !u!61 &369204546
 BoxCollider2D:
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b8728ea5d33fd42ab1f4189911cb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  level: 1
   mergeBar: {fileID: 939570709}
 --- !u!61 &677790340
 BoxCollider2D:
@@ -521,8 +521,8 @@ Transform:
   m_GameObject: {fileID: 939570707}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.4458926, y: 2.0475235, z: 0.015002557}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.01, y: 1.95, z: 0.015002557}
+  m_LocalScale: {x: 1.6435, y: 1.6435, z: 1.6435}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2051440591}
@@ -721,7 +721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b8728ea5d33fd42ab1f4189911cb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  level: 1
   mergeBar: {fileID: 939570709}
 --- !u!61 &1506269179
 BoxCollider2D:
@@ -870,7 +870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b8728ea5d33fd42ab1f4189911cb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  level: 1
   mergeBar: {fileID: 939570709}
 --- !u!61 &1622470277
 BoxCollider2D:
@@ -1198,7 +1198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b8728ea5d33fd42ab1f4189911cb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  level: 1
   mergeBar: {fileID: 939570709}
 --- !u!61 &2051440593
 BoxCollider2D:
@@ -1307,5 +1307,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 1242303641}
   - {fileID: 297015839}
-  - {fileID: 1772435925}
   - {fileID: 939570708}
+  - {fileID: 1772435925}
