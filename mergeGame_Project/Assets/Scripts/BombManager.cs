@@ -34,4 +34,8 @@ public class BombManager : MonoBehaviour
                 bomb.Explode();
         }
     }
+    public int GetActiveBombCount()
+    {
+        return activeBombs.Count;
+    }
 }

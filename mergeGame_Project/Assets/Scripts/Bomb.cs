@@ -17,6 +17,9 @@ public class Bomb : MonoBehaviour
     [Header("Merge Settings")]
     public float mergeCooldown = 0.1f;
 
+    [Header("Sprites")]
+    public Sprite[] levelSprites;
+
     private Rigidbody2D rb;
     private bool isMerging = false;
     private bool hasMergedRecently = false;
@@ -144,7 +147,19 @@ public class Bomb : MonoBehaviour
             levelLabel.text = level.ToString();
 
         if (sr != null)
-            sr.color = GetColorForLevel(level);
+        {
+            int spriteIndex = level - 1;
+
+            if (levelSprites != null && spriteIndex >= 0 && spriteIndex < levelSprites.Length && levelSprites[spriteIndex] != null)
+            {
+                sr.sprite = levelSprites[spriteIndex];
+                sr.color = Color.white; // keep sprite colors normal
+            }
+            else
+            {
+                sr.color = GetColorForLevel(level); // fallback if sprite missing
+            }
+        }
 
         transform.localScale = Vector3.one * (1f + (level - 1) * 0.15f);
     }

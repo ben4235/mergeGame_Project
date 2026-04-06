@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerCarrier : MonoBehaviour
 {
@@ -16,11 +17,19 @@ public class PlayerCarrier : MonoBehaviour
     public SpriteRenderer playerRenderer;
     public Color defaultColor = Color.white;
 
+    [Header("Bomb Limit")]
+    public int maxBombs = 10;
+    private int bombsUsed = 0;
+
+    [Header("UI")]
+    public TMP_Text bombsLeftText;
+
     private int heldBombLevel = -1;
 
     private void Start()
     {
         UpdatePlayerColor();
+        UpdateBombsUI();
     }
 
     private void Update()
@@ -65,6 +74,9 @@ public class PlayerCarrier : MonoBehaviour
 
     private void DropBomb()
     {
+        if (bombsUsed >= maxBombs)
+            return;
+
         GameObject bombObj = Instantiate(bombPrefab, dropPoint.position, Quaternion.identity);
         Bomb bomb = bombObj.GetComponent<Bomb>();
 
@@ -73,8 +85,40 @@ public class PlayerCarrier : MonoBehaviour
             bomb.Initialize(heldBombLevel);
         }
 
+        bombsUsed++;
+
         heldBombLevel = -1;
         UpdatePlayerColor();
+        UpdateBombsUI();
+
+        if (GroundProgressManager.Instance != null)
+        {
+            GroundProgressManager.Instance.ForceRefresh();
+        }
+    }
+
+    private void UpdateBombsUI()
+    {
+        if (bombsLeftText != null)
+        {
+            int bombsRemaining = maxBombs - bombsUsed;
+            bombsLeftText.text = $"Bombs Left: {bombsRemaining}";
+        }
+    }
+
+    public int GetBombsUsed()
+    {
+        return bombsUsed;
+    }
+
+    public int GetMaxBombs()
+    {
+        return maxBombs;
+    }
+
+    public bool HasNoBombsRemaining()
+    {
+        return bombsUsed >= maxBombs;
     }
 
     public int GetHeldBombLevel()
@@ -106,4 +150,6 @@ public class PlayerCarrier : MonoBehaviour
             default: return Color.red;
         }
     }
+
+
 }

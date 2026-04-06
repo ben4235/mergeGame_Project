@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 99ad5dbf1b39a55468af485ab07ed2ad
+guid: 91a35619659be9a46a840b254167b70e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8957324059118975939
-    second: images_0
+      213: 6175064692937923731
+    second: iceberg_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: images_0
+      name: iceberg_0
       rect:
         serializedVersion: 2
-        x: 30
-        y: 30
-        width: 165
-        height: 165
+        x: 0
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3cbb8d916cece4c70800000000000000
-      internalID: 8957324059118975939
+      spriteID: 39c1f9f0f9c32b550800000000000000
+      internalID: 6175064692937923731
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d6c5be5514f954949b49dc8f57d0efe6
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      images_0: 8957324059118975939
+      iceberg_0: 6175064692937923731
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

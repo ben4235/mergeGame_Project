@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -167,5 +167,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   baseExplosionRadius: 1.25
-  sr: {fileID: 0}
+  explosionGrowthPerLevel: 0.2
+  sr: {fileID: 3044523048250665598}
   levelLabel: {fileID: 0}
+  mergeCooldown: 0.1
+  levelSprites:
+  - {fileID: -790128556941640680, guid: dbae789ec14ed2949b25157d9830496f, type: 3}
+  - {fileID: -1464897163517284637, guid: 9875249a21967d745a818786d1d20307, type: 3}
+  - {fileID: -6177686104705643662, guid: 3533615f25c1ccd49a2f13299d10670a, type: 3}
+  - {fileID: 217697131928726567, guid: 49457fe7591e89644acfae6619d4c493, type: 3}
+  - {fileID: 5513035346733385403, guid: 882b9b5a0b9f5874fbfb34e63f3dafdc, type: 3}
+  - {fileID: 2281312631883805724, guid: 042c2c2475030384bba37c819a3bc463, type: 3}
