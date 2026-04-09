@@ -13,6 +13,7 @@ public class FallingBlock : MonoBehaviour
     private TextMeshPro tmp;
     private TextMesh legacyText;
 
+    private BlockOnGrid target;
     void Awake()
     {
         tmp = GetComponentInChildren<TextMeshPro>();
@@ -37,24 +38,32 @@ public class FallingBlock : MonoBehaviour
         if (legacyText != null) legacyText.text = number.ToString();
     }
 
+	private void Update()
+	{
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+			if (target != null && gridManager != null)
+			{
+				Debug.Log($"[FallingBlock] Hit BlockOnGrid ({target.gridX},{target.gridY}), do explosion, number={number}");
+				gridManager.ExplosionAt(target, number);
+				Destroy(gameObject);
+			}
+			else
+			{
+				if (target == null)
+					Debug.Log("[FallingBlock] Collider上没有 BlockOnGrid 组件，检查你的 grid prefab 是否挂了 BlockOnGrid");
+				if (gridManager == null)
+					Debug.Log("[FallingBlock] gridManager 是 null，检查 BlockArrayController 里有没有把 GridManager 拖进去并且 Init 有传");
+			}
+		}
+	}
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log($"[FallingBlock] OnCollisionEnter2D with {collision.collider.name}");
 
-        var block = collision.collider.GetComponent<BlockOnGrid>();
-        if (block != null && gridManager != null)
-        {
-            Debug.Log($"[FallingBlock] Hit BlockOnGrid ({block.gridX},{block.gridY}), do explosion, number={number}");
-            gridManager.ExplosionAt(block, number);
-            Destroy(gameObject);
-        }
-        else
-        {
-            if (block == null)
-                Debug.Log("[FallingBlock] Collider上没有 BlockOnGrid 组件，检查你的 grid prefab 是否挂了 BlockOnGrid");
-            if (gridManager == null)
-                Debug.Log("[FallingBlock] gridManager 是 null，检查 BlockArrayController 里有没有把 GridManager 拖进去并且 Init 有传");
-        }
+        target = collision.collider.GetComponent<BlockOnGrid>();
+       
     }
 
     // 如果你把任一 collider 设成了 IsTrigger=true，那就用这个而不是上面的
